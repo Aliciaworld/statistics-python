@@ -1,0 +1,28 @@
+from random import randint
+
+N=1000
+
+def simulate(N):
+	K = 0
+	for i in range(N):  #to run through this n times
+	truth = randint(1,3)  #using randint to assign the true location of the car
+	
+	guess1 = randint(1,3)  #using randint to choose the initial guess at random
+	
+	if truth == guess1:  #there are two possibilities: either truth is equivalent to guess1 or it isn't. if they are equal, Monty will pick one of the two other doors.
+		
+		monty = randint(1,3)  #Monty pick a random door using randint
+			
+			while monty == truth:  #Monty might have picked the true door, then rerun the random number generator untill finds a door that not true or guess
+				monty = randint(1,3)
+	
+	else:  #if the truth and guess are not same. Monty has to pick the remaining door with probability 1
+		
+		monty = 6 - truth - guess1  #sum of the door(1,2,3) equals 6. If substrat from 6 the truth and guess, then we get the monty door number.
+	
+	guess2 = 6 - guess1 - monty  #to flip the door, pick the one that wasn't the initial guess, which is subtract guess1 from 6, and Monty
+	
+	if guess2 == truth:  #if guess2 is the same as the true door, increment k by 1
+		K = K+1	
+	return float(K) / float(N）
+  
